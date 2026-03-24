@@ -21,6 +21,10 @@ import json
 import os
 from typing import Any
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
 from openai import OpenAI
 
 from memory_manager import MemoryManager
@@ -35,10 +39,11 @@ from prompts import (
 )
 from utils import extract_first_code_block, extract_json_from_text, extract_time_limit, split_challenge_and_code
 
-GROQ_API_KEY = os.getenv(
-    "GROQ_API_KEY",
-    "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",
-)
+GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+if not GROQ_API_KEY:
+    raise EnvironmentError(
+        "GROQ_API_KEY is not set. Add it to your .env file or environment variables."
+    )
 GROQ_BASE_URL = "https://api.groq.com/openai/v1"
 GROQ_MODEL = "llama-3.3-70b-versatile"
 
