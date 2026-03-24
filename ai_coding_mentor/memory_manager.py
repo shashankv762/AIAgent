@@ -14,12 +14,16 @@ from typing import Any
 
 import requests
 import streamlit as st
+from dotenv import load_dotenv
+
+load_dotenv()
 
 HINDSIGHT_BASE_URL = "https://api.hindsight.vectorize.io"
-HINDSIGHT_API_KEY = os.getenv(
-    "HINDSIGHT_API_KEY",
-    "hsk_7328b91d7064aad7f89890f9219e1369_184daeecf11c96fb",
-)
+HINDSIGHT_API_KEY = os.getenv("HINDSIGHT_API_KEY")
+if not HINDSIGHT_API_KEY:
+    raise EnvironmentError(
+        "HINDSIGHT_API_KEY is not set. Add it to your .env file or environment variables."
+    )
 LOCAL_MEMORY_FILE = os.path.join(os.path.dirname(__file__), "memory_store.json")
 
 
